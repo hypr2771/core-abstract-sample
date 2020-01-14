@@ -1,0 +1,6 @@
+[submodule "core-new"]
+	path = core-new
+	url = git@github.com:hypr2771/core-new.git
+[submodule "core-legacy"]
+	path = core-legacy
+	url = git@github.com:hypr2771/core-legacy.git
