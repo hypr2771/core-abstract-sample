@@ -348,8 +348,14 @@ To test version 2, you can call:
 curl -X GET "http://localhost:8080/shoes/search" -H "version: 2"
 ```
 
-which should answer (see `com.example.demo.core.ShoeCoreLegacy.search`):
+which should answer (see `com.example.demo.core.ShoeCoreNew.search`):
 
 ```json
-{"shoes":[{"name":"New shoe","size":2,"color":"Black"}]}
+{"shoes":[{"name":"New shoe","size":2,"color":"BLACK"}]}
 ```
+
+# Conclusion
+
+We can see that both result are structurally identical, while the code is obviously different.
+
+This is indeed practical, since we can use almost any paradigm, segregate our code versions and eventually just drop one when implementation gets unused and deprecated.
