@@ -12,7 +12,7 @@ import lombok.Value;
 @JsonDeserialize(builder = ShoesBuilder.class)
 public class Shoes {
 
-  private List<Shoe> shoes;
+  List<Shoe> shoes;
 
   @JsonPOJOBuilder(withPrefix = "")
   public static class ShoesBuilder {
