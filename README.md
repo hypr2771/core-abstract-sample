@@ -27,24 +27,25 @@ A Projection is a DTO.
 ## What are we talking about
 
 We often encounter hard times refactoring and upgrading our libraries.
-Most of the time. it went smooth and upgrading was straightforward. Adding few flags, removing others, refactoring methods is always pretty easy and impactless (with a well tested code base).
-But when it comes to changing paradigm, refactoring domains, changing entity relationships,... it's where it becomes messy:
+Most of the time it goes smoothly and upgrading is straightforward: adding few flags, removing others, refactoring methods are always pretty easy and impactless tasks (with a well tested code base).
+But when it comes to changing paradigm, refactoring domains, changing entity relationships,... it is where things becomes messy:
 
 - you will most likely duplicate code to satisfy your legacy clients
-- you'll have to create new transformers (domain to DTO) or change your DTOs
+- you will have to create new transformers (domain to DTO) or change your DTOs
 - you may have to change the whole stack, or create new endpoints using your new code
 
 ## How we address the issue
 
-This issue is really important, for we often change technology, sometimes for huge improvement, sometimes for clarity purpose, sometimes for <insert a good reason here>...
+This issue is really important, for we often change technology, sometimes for huge improvement, sometimes for clarity purpose, sometimes to respond to new business needs,...
 
-Now, it is important to note that right now, this is not an issue we fixed, but a simple draft on how to do it.
+Now, it is important to note that right now, this is not an issue we _fixed_, but a simple draft on how to do it.
 
 ## Make DTOs the basis of your application
 
 As a REST API developer, what are you if no one consumes your API?
 You are bound to provide your customer with data _first_.
-Does anyone but you even cares that you're using Hibernate or jooq or plain JDBC, as long as they have their DTOs, or even that your table `SHOE` as a join table to `SIZE` called `EXISTS_IN`?
+Does anyone but you even cares whether you are using Hibernate or jooq or plain JDBC, as long as they have their DTOs?
+Do they even care that your table `SHOE` as a join table to `SIZE` called `EXISTS_IN`?
 
 We can rapidly notice that your DTO is the core of your REST API, way before your domain or business services.
 
@@ -80,12 +81,12 @@ The first suggestion of this post is then to create your DTO _before_ your domai
 
 ## Make your controller agnostic of the core
 
-An important part of the idea is also that your controllers will be static once it will be consumed by at least one client.
-Indeed, you cannot control the workload of your clients, hence you will have to adapt to them, and guarantee them your service for as long as you judge fit (well, money drives us, so if the client's worth to keep, we all know the controller will remain as is for as long as this client doesn't migrate).
+An important part of the idea is also that your controllers will be de facto _static_ once it will be consumed by at least one client.
+Indeed, you cannot control the workload of your clients, hence you will have to adapt to them, and guarantee them your service for as long as you judge fit (in practice, since money drives us, if the client is worth to keep, we all know the controller will remain untouched as long as this client does not migrate).
 
 ![image](https://user-images.githubusercontent.com/6195718/72347878-647df180-36d9-11ea-97c7-4a618b08d464.png)
 
-This means that you will need your controller to be agnostic (as for the DTOs) of the business implementation. Once again, do your customer care if you are using a new table which requires them to update to a new API, if they don't need it anyway?
+This means that you will need your controller to be agnostic (as for the DTOs) of the business implementation. Once again, do your customer care if you are using a new table which requires them to update to a new API, if they do not need it anyway?
 
 So the whole point here is again to make your controller implementation agnostic of the core implementation.
 
@@ -268,11 +269,11 @@ public abstract class AbstractShoeCore implements ShoeCore {
 
 ### Implementing your core
 
-Okay, so we have an abstract core, how do we register cores so that your built application can uses them?
+Okay, so we have an abstract core, how do we register cores implementations so that your built application can uses them?
 
-Once again, it's quite simple: create a factory in the core abstraction, and let your core implementation register against this factory.
+Once again, it is quite simple: create a factory in the core abstraction, and let your core implementation register against this factory.
 
-Once you do that, your business implementation will be picked by the core abstract module, instead of the controllers directly.
+Once you do that, your business implementation will be picked by the factory, instead of the controllers directly. Controllers will only need to integrate the factory.
 
 <details>
 <summary><b>The shoe example</b></summary>
@@ -314,8 +315,8 @@ Once you do that, your business implementation will be picked by the core abstra
 Following a [REST API versioning guide](https://www.baeldung.com/rest-versioning), we think versioning using content negotiation is pretty relevant for our purpose:
 
 - we will be able to return different DTO for the same endpoint
-- we may simply fetch the `version` from the content type, and find our core implementation relatively
-- our controllers won't depend on core implementation, but on the factory providing us core implementation
+- we may simply fetch the `version` from the content type, and fetch our core implementation accordingly
+- our controllers will not depend on core implementation, but on the factory providing us core implementation
 
 # Validating the application
 
@@ -358,4 +359,4 @@ which should answer (see `com.example.demo.core.ShoeCoreNew.search`):
 
 We can see that both result are structurally identical, while the code is obviously different.
 
-This is indeed practical, since we can use almost any paradigm, segregate our code versions and eventually just drop one when implementation gets unused and deprecated.
+This is indeed useful, since we can use almost any paradigm, segregate our code versions and eventually just drop one when implementation becomes unused and/or deprecated.
