@@ -1,13 +1,14 @@
 package com.example.demo.dto.in;
 
-import java.awt.Color;
 import java.math.BigInteger;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+import lombok.Value;
 
+@Value
 public class ShoeFilter {
 
-  public BigInteger size;
-  public Color color;
+  BigInteger size;
+  Color color;
 
   public enum Color{
 
@@ -15,6 +16,14 @@ public class ShoeFilter {
     BLUE,
     ;
 
+  }
+
+  public Optional<BigInteger> getSize(){
+    return Optional.ofNullable(size);
+  }
+
+  public Optional<Color> getColor(){
+    return Optional.ofNullable(color);
   }
 
 }

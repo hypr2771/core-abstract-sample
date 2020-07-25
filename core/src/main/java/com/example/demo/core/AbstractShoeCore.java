@@ -1,8 +1,10 @@
 package com.example.demo.core;
 
 import com.example.demo.facade.ShoeFacade;
-import java.math.BigInteger;
+import java.util.Optional;
 import javax.annotation.PostConstruct;
+import lombok.val;
+import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractShoeCore implements ShoeCore {
@@ -12,9 +14,13 @@ public abstract class AbstractShoeCore implements ShoeCore {
 
   @PostConstruct
   void init(){
-    shoeFacade.register(getVersion(), this);
-  }
 
-  protected abstract BigInteger getVersion();
+    val version = Optional.ofNullable(this.getClass().getAnnotation(Implementation.class))
+                          .map(Implementation::version)
+                          .orElseThrow(() -> new FatalBeanException("AbstractShoeCore implementation should be annotated with @Implementation"));
+
+    shoeFacade.register(version, this);
+
+  }
 
 }

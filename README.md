@@ -255,10 +255,30 @@ public abstract class AbstractShoeCore implements ShoeCore {
 
   @PostConstruct
   void init(){
-    shoeFacade.register(getVersion(), this);
+
+    val version = Optional.ofNullable(this.getClass().getAnnotation(Implementation.class))
+                          .map(Implementation::version)
+                          .orElseThrow(() -> new FatalBeanException("AbstractShoeCore implementation should be annotated with @Implementation"));
+
+    shoeFacade.register(version, this);
+
   }
 
-  protected abstract BigInteger getVersion();
+}
+```
+
+</details>
+
+<details>
+<summary><code>Implementation</code></summary>
+
+```java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Component
+public @interface Implementation {
+
+  int version();
 
 }
 ```
@@ -269,7 +289,7 @@ public abstract class AbstractShoeCore implements ShoeCore {
 
 ### Implementing your core
 
-Okay, so we have an abstract core, how do we register cores implementations so that your built application can uses them?
+Okay, so we have an abstract core, how do we register cores implementations so that your built application can use them?
 
 Once again, it is quite simple: create a factory in the core abstraction, and let your core implementation register against this factory.
 
