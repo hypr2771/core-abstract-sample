@@ -11,6 +11,8 @@
     <module>core</module>
     <module>core-legacy</module>
     <module>core-new</module>
+    <module>common</module>
+    <module>core-stock</module>
   </modules>
 
   <parent>
@@ -28,6 +30,7 @@
 
   <properties>
     <java.version>14</java.version>
+    <junitVersion>4.13.2</junitVersion>
   </properties>
 
   <dependencies>
@@ -39,12 +42,22 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junitVersion}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hsqldb</groupId>
