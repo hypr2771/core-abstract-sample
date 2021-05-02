@@ -13,7 +13,7 @@ public class ShoeFilter {
   public enum Color{
 
     BLACK,
-    BLUE,
+    BLUE
     ;
 
   }

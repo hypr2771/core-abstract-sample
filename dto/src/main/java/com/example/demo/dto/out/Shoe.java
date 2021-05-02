@@ -1,26 +1,31 @@
 package com.example.demo.dto.out;
 
+import java.math.BigInteger;
+
 import com.example.demo.dto.in.ShoeFilter.Color;
 import com.example.demo.dto.out.Shoe.ShoeBuilder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import java.math.BigInteger;
+
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 
+@Getter
+@Setter
 @Value
 @Builder
 @JsonDeserialize(builder = ShoeBuilder.class)
 public class Shoe {
 
-  String     name;
-  BigInteger size;
-  Color      color;
+	private String name;
+	private BigInteger size;
+	private Color color;
 
-  @JsonPOJOBuilder(withPrefix = "")
-  public static class ShoeBuilder {
+	@JsonPOJOBuilder(withPrefix = "")
+	public static class ShoeBuilder {
 
-  }
-
+	}
 
 }
