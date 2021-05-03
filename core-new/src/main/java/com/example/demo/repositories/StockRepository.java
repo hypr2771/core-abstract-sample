@@ -7,10 +7,17 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.entities.StockEntity;
 
-
 public interface StockRepository extends JpaRepository<StockEntity, BigInteger> {
 
-	@Query("select s from StockEntity s where s.creationDate = (select Max(creationDate) from StockEntity)")
+	
+	@Query("SELECT s FROM StockEntity s "
+			+ "WHERE s.creationDate = (select MAX(creationDate) FROM StockEntity) "
+			)
 	StockEntity getCurrentStock();
+	@Query("SELECT s FROM StockEntity s "
+			+ "INNER JOIN s.shoesEntity shoesEntity "
+			+ "WHERE s.creationDate = (select MAX(creationDate) FROM StockEntity) "
+			)
+	StockEntity getCurrentStockWithShoes();
 
 }

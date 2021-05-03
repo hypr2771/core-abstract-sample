@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,16 +36,13 @@ public class StockEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	private Set<ShoeEntity> shoes;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stock")
+	private Set<ShoeEntity> shoesEntity;
 
-	@Column(name = "total_quantity", length = 2)
 	private Integer totalQuantity;
 
 	@Column(name = "creation_date")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate creationDate;
-	
-
 
 }

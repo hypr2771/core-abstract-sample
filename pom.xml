@@ -28,6 +28,8 @@
 
 	<properties>
 		<java.version>14</java.version>
+		<mapstruct.version>1.4.1.Final</mapstruct.version>
+		<lombok.version>1.18.16</lombok.version>
 	</properties>
 
 	<dependencies>

@@ -1,6 +1,7 @@
 
-INSERT INTO stock (id, total_quantity, creation_date) Values (1, 25, '2021-05-01');
-INSERT INTO stock (id, total_quantity, creation_date) Values (2, 30, '2021-01-01');
+INSERT INTO stock (id, total_quantity, creation_date) Values (1, 30, '2021-05-01');
+INSERT INTO stock (id, total_quantity, creation_date) Values (2, 0, '2021-01-01');
+INSERT INTO stock (id, total_quantity, creation_date) Values (3, 1, '2020-01-01');
 
 
 INSERT INTO Shoe (id, name, size, color, quantity, id_stock) Values (1, 'shoes1', 42, 'BLACK', 5, 1);
@@ -17,4 +18,5 @@ INSERT INTO Shoe (id, name, size, color, quantity, id_stock) Values (11, 'shoes2
 INSERT INTO Shoe (id, name, size, color, quantity, id_stock) Values (12, 'shoes2', 41, 'BLUE', 1, 1);
 INSERT INTO Shoe (id, name, size, color, quantity, id_stock) Values (13, 'shoes2', 39, 'BLUE', 1, 1);
 INSERT INTO Shoe (id, name, size, color, quantity, id_stock) Values (14, 'shoes2', 37, 'BLUE', 0, 1);
-  
+INSERT INTO Shoe (id, name, size, color, quantity, id_stock) Values (15, 'shoes2', 36, 'BLUE', 1, 3);
+
