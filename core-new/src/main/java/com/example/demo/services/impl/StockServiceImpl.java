@@ -28,6 +28,7 @@ public class StockServiceImpl implements IStockService {
 
 	@Override
 	public Stock updateStock(Stock stock) {
+		//TODO Add verification of quantities and conditions 
 		
 		StockEntity stockSaved = this.stockRepository.save(this.stockMapper.stockToStockEntity(stock));
 		

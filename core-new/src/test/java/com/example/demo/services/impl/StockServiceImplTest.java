@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,21 +65,36 @@ class StockServiceImplTest {
 		Shoes shoes = shoesBuilder.build();
 		stockBuilder.shoes(shoes);
 		stockBuilder.state(State.SOME);
+		stockBuilder.creationDate(LocalDate.now());
         this.stock = stockBuilder.build();
 	}
 	
 	@Test
-	void getStockTestWithSOMEState() {
+	void getStockTestWithStateSOME() {
 		
 		when(this.stockMapper.stockEntityToStock(this.stockEntity)).thenReturn(this.stock);
 		when(this.stockRepository.getCurrentStockWithShoes()).thenReturn(this.stockEntity);
 		Stock stockResult = stockServiceImpl.getStock();
 		
 		assertThat(stockResult).isNotNull();
-		assertThat(State.SOME == stockResult.getState()).isTrue();
-		assertThat(stockResult.getShoes().getShoes().isEmpty()).isFalse();
+		assertThat(stockResult.getState()).isEqualTo(State.SOME);
+		assertThat(stockResult.getShoes().getShoes()).isNotEmpty();
 	}
 	
+	
+	@Test
+	void updateStockTestWithSOMEState() {
+		this.stockEntity.setCreationDate(LocalDate.now());
+		when(this.stockMapper.stockToStockEntity(this.stock)).thenReturn(this.stockEntity);
+		when(this.stockRepository.save(this.stockEntity)).thenReturn(this.stockEntity);
+		when(this.stockMapper.stockEntityToStock(this.stockEntity)).thenReturn(this.stock);
 
+		Stock stockResult = stockServiceImpl.updateStock(this.stock);
+		
+		assertThat(stockResult).isNotNull();
+		assertThat(stockResult.getState()).isEqualTo(State.SOME);
+		assertThat(stockResult.getShoes().getShoes()).isNotEmpty();
+		assertThat(LocalDate.now()).isEqualTo(stockResult.getCreationDate());
+	}
 
 }
