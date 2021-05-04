@@ -23,9 +23,6 @@ import lombok.Setter;
 @Table(name = "shoe")
 public class ShoeEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7073048837058601737L;
 
 	@Id
