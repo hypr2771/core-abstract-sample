@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -34,12 +35,15 @@ public class RepositoryTest {
 
 	@Test
 	public void verifieLeNombreDhistoriqueDeStockDoitRetourner3Test() {
-		assertThat(stockRepository.count()).isEqualTo(3);
-	}
+		List<StockEntity> stocks =   this.stockRepository.findAll();
+		assertThat(stocks).isNotEmpty();
+		assertThat(stocks.size()).isEqualTo(3);	}
 
 	@Test
 	public void verifieLeNombreDeModelDeChaussureDoitRetournerLNombreTotaldesModelsTest() {
-		assertThat(shoeRepository.count()).isEqualTo(15);
+		List<ShoeEntity> shoes =   this.shoeRepository.findAll();
+		assertThat(shoes).isNotEmpty();
+		assertThat(shoes.size()).isEqualTo(15);
 	}
 
 	@Test
