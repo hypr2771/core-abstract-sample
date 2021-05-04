@@ -9,10 +9,7 @@ import com.example.demo.mapper.StockMapper;
 import com.example.demo.repositories.StockRepository;
 import com.example.demo.services.IStockService;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class StockServiceImpl implements IStockService {
 
 	@Autowired
@@ -31,8 +28,11 @@ public class StockServiceImpl implements IStockService {
 
 	@Override
 	public Stock updateStock(Stock stock) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		StockEntity stockSaved = this.stockRepository.save(this.stockMapper.stockToStockEntity(stock));
+		
+		return this.stockMapper.stockEntityToStock(stockSaved);
 	}
+	
 
 }

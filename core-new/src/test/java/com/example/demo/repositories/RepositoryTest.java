@@ -34,12 +34,12 @@ public class RepositoryTest {
 
 	@Test
 	public void verifieLeNombreDhistoriqueDeStockDoitRetourner3Test() {
-		assertThat(stockRepository.count() == 3).isTrue();
+		assertThat(stockRepository.count()).isEqualTo(3);
 	}
 
 	@Test
 	public void verifieLeNombreDeModelDeChaussureDoitRetournerLNombreTotaldesModelsTest() {
-		assertThat(shoeRepository.count() == 15).isTrue();
+		assertThat(shoeRepository.count()).isEqualTo(15);
 	}
 
 	@Test
@@ -48,14 +48,14 @@ public class RepositoryTest {
 		StockEntity stockRecent = stockRepository.getCurrentStock();
 
 		assertThat(stockRecent).isNotNull();
-		assertThat(stockRecent.getCreationDate().isEqual(LocalDate.parse("2021-05-01"))).isTrue();
+		assertThat(stockRecent.getCreationDate()).isEqualTo(LocalDate.parse("2021-05-01"));
 	}
 
 	@Test
 	public void supprimerUnAncienStockEtVerifierQuIlResteUnSeulTest() {
-		this.shoeRepository.deleteShoeWithIdStock(BigInteger.valueOf(1));
+		this.shoeRepository.deleteByStockId(BigInteger.valueOf(1));
 		this.stockRepository.deleteById(BigInteger.valueOf(1));
-		assertThat(stockRepository.count() == 2).isTrue();
+		assertThat(stockRepository.count()).isEqualTo(2);
 
 	}
 
@@ -70,15 +70,15 @@ public class RepositoryTest {
 
 		this.shoeRepository.deleteById(BigInteger.valueOf(3));
 		this.stockRepository.save(stockEntity);
-		assertThat(shoeRepository.count() == 14).isTrue();
-		assertThat(this.stockRepository.count() == 3).isTrue();
+		assertThat(shoeRepository.count()).isEqualTo(14);
+		assertThat(this.stockRepository.count()).isEqualTo(3);
 	}
 
 	@Test
 	public void recupererLeStockAvecLesChaussures() {
-		assertThat(stockRepository.count() == 3).isTrue();
+		assertThat(stockRepository.count()).isEqualTo(3);
 		StockEntity stockEntity = this.stockRepository.getCurrentStockWithShoes();
-		assertThat(stockEntity.getShoesEntity().isEmpty()).isFalse();
+		assertThat(stockEntity.getShoesEntity()).isNotEmpty();
 
 	}
 

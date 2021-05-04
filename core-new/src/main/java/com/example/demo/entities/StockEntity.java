@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,9 +28,6 @@ import lombok.ToString;
 @Table(name = "stock")
 public class StockEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2120511417522816893L;
 
 	@Id
@@ -37,6 +35,7 @@ public class StockEntity implements Serializable {
 	private BigInteger id;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stock")
+    @OrderBy
 	private Set<ShoeEntity> shoesEntity;
 
 	private Integer totalQuantity;

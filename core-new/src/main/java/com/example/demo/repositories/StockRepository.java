@@ -15,8 +15,8 @@ public interface StockRepository extends JpaRepository<StockEntity, BigInteger> 
 			)
 	StockEntity getCurrentStock();
 	@Query("SELECT s FROM StockEntity s "
-			+ "INNER JOIN s.shoesEntity shoesEntity "
-			+ "WHERE s.creationDate = (select MAX(creationDate) FROM StockEntity) "
+			+ "INNER JOIN s.shoesEntity shoes "
+			+ "WHERE s.creationDate = (select MAX(creationDate) FROM StockEntity) order by shoes.id"
 			)
 	StockEntity getCurrentStockWithShoes();
 
