@@ -13,10 +13,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
 
 @Value
 @Builder
+@Setter
 @JsonDeserialize(builder = StockBuilder.class)
 public class Stock {
 
@@ -26,7 +28,7 @@ public class Stock {
 
 	@NotEmpty
 	@NotNull
-	@Max(value = 30, message = "La capacité maximale autorisée est de 30")
+	@Max(value = 30, message = "Capcity max autorised is 30")
 	private BigInteger totalQuantity;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
