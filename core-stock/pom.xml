@@ -7,7 +7,7 @@
 		<artifactId>demo</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>core-new</artifactId>
+	<artifactId>core-stock</artifactId>
 	<version>${parent.version}</version>
 	<name>core-new</name>
 	<description>Core new our third</description>

@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>core-stock</artifactId>
+  <artifactId>core-new</artifactId>
   <dependencies>
     <dependency>
       <groupId>com.example</groupId>
