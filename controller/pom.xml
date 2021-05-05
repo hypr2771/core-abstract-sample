@@ -36,6 +36,11 @@
 			<version>${parent.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>core-stock</artifactId>
+			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${swagger.version}</version>
