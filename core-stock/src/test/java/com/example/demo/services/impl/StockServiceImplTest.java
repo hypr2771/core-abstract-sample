@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,12 +20,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.example.demo.dto.in.ShoeFilter.Color;
 import com.example.demo.dto.out.Shoe;
-import com.example.demo.dto.out.Shoe.ShoeBuilder;
 import com.example.demo.dto.out.Shoes;
-import com.example.demo.dto.out.Shoes.ShoesBuilder;
 import com.example.demo.dto.out.Stock;
 import com.example.demo.dto.out.Stock.State;
-import com.example.demo.dto.out.Stock.StockBuilder;
 import com.example.demo.entities.ShoeEntity;
 import com.example.demo.entities.StockEntity;
 import com.example.demo.mapper.StockMapper;
@@ -53,34 +49,16 @@ class StockServiceImplTest {
 
 	private Stock stock;
 
-	private StockBuilder stockBuilder;
-
-	private ShoesBuilder shoesBuilder;
-
-	private ShoeBuilder shoeBuilder;
-
 	@BeforeEach
 	public void setUp() {
 		stockEntity = new StockEntity();
-		stockEntity.setId(BigInteger.valueOf(1));
+		stockEntity.setId(BigInteger.ONE);
 
-		stockBuilder = Stock.builder();
-		shoesBuilder = Shoes.builder();
+		Shoe shoe = Shoe.builder().size(BigInteger.valueOf(42)).color(Color.BLACK).name("model1")
+				.quantity(BigInteger.TEN).build();
+		Shoes shoes = Shoes.builder().shoes(List.of(shoe)).build();
 
-		List<Shoe> listShoes = new ArrayList<Shoe>();
-		shoeBuilder = Shoe.builder();
-		shoeBuilder.color(Color.BLACK);
-		shoeBuilder.name("model1");
-		shoeBuilder.quantity(BigInteger.valueOf(10));
-		shoeBuilder.size(BigInteger.valueOf(42));
-		Shoe shoe = shoeBuilder.build();
-		listShoes.add(shoe);
-		shoesBuilder.shoes(listShoes);
-		Shoes shoes = shoesBuilder.build();
-		stockBuilder.shoes(shoes);
-		stockBuilder.state(State.SOME);
-		stockBuilder.creationDate(LocalDate.now());
-		this.stock = stockBuilder.build();
+		this.stock = Stock.builder().creationDate(LocalDate.now()).state(State.SOME).shoes(shoes).build();
 
 	}
 
@@ -102,12 +80,12 @@ class StockServiceImplTest {
 		this.stockEntity.setTotalQuantity(0);
 		this.stockEntity.setShoesEntity(new HashSet<ShoeEntity>());
 
-		this.stockBuilder.totalQuantity(BigInteger.valueOf(0));
-		this.stockBuilder.state(State.EMPTY);
-		this.shoesBuilder.shoes(new ArrayList<Shoe>());
-		Shoes shoes = this.shoesBuilder.build();
-		this.stockBuilder.shoes(shoes);
-		this.stock = this.stockBuilder.build();
+		Shoe shoe = Shoe.builder().size(BigInteger.valueOf(42)).color(Color.BLACK).name("model1")
+				.quantity(BigInteger.ZERO).build();
+		Shoes shoes = Shoes.builder().shoes(List.of(shoe)).build();
+
+		this.stock = Stock.builder().totalQuantity(BigInteger.ZERO).creationDate(LocalDate.now()).state(State.EMPTY).shoes(shoes).build();
+
 		when(this.stockMapper.stockToStockEntity(this.stock)).thenReturn(this.stockEntity);
 		when(this.stockRepository.save(this.stockEntity)).thenReturn(this.stockEntity);
 		when(this.stockMapper.stockEntityToStock(this.stockEntity)).thenReturn(this.stock);
@@ -116,7 +94,7 @@ class StockServiceImplTest {
 
 		assertThat(stockResult).isNotNull();
 		assertThat(stockResult.getState()).isEqualTo(State.EMPTY);
-		assertThat(stockResult.getShoes().getShoes()).isEmpty();
+		assertThat(stockResult.getTotalQuantity()).isZero();
 		assertThat(LocalDate.now()).isEqualTo(stockResult.getCreationDate());
 	}
 
@@ -140,27 +118,24 @@ class StockServiceImplTest {
 		this.stockEntity.setCreationDate(LocalDate.now());
 		this.stockEntity.setTotalQuantity(35);
 		this.stockEntity.setShoesEntity(new HashSet<ShoeEntity>());
+		;
 
-		this.stockBuilder.totalQuantity(BigInteger.valueOf(35));
-		this.stockBuilder.state(State.FULL);
-		this.shoeBuilder.quantity(BigInteger.valueOf(35));
-		Shoe shoe = this.shoeBuilder.build();
-		List<Shoe> sohesList = new ArrayList<Shoe>();
-		sohesList.add(shoe);
-		this.shoesBuilder.shoes(sohesList);
-		Shoes shoes = this.shoesBuilder.build();
-		this.stockBuilder.shoes(shoes);
-		this.stock = this.stockBuilder.build();
+		Shoe shoe = Shoe.builder().size(BigInteger.valueOf(42)).color(Color.BLACK).name("model1")
+				.quantity(BigInteger.valueOf(35)).build();
+		Shoes shoes = Shoes.builder().shoes(List.of(shoe)).build();
+
+		this.stock = Stock.builder().creationDate(LocalDate.now()).totalQuantity(BigInteger.valueOf(35))
+				.state(State.FULL).shoes(shoes).build();
+
 		when(this.stockMapper.stockToStockEntity(this.stock)).thenReturn(this.stockEntity);
 		when(this.stockRepository.save(this.stockEntity)).thenReturn(this.stockEntity);
 		when(this.stockMapper.stockEntityToStock(this.stockEntity)).thenReturn(this.stock);
 
 		Stock stockResult = null;
 		boolean exceptionGenere = false;
-		
-		ReflectionTestUtils.setField(stockServiceImpl, "messageCapacity",
-				MESSAGE_ERROR_CAPACITY);
-		
+
+		ReflectionTestUtils.setField(stockServiceImpl, "messageCapacity", MESSAGE_ERROR_CAPACITY);
+
 		try {
 			stockResult = stockServiceImpl.updateStock(this.stock);
 		} catch (QuantityException e) {
