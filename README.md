@@ -343,7 +343,7 @@ Following a [REST API versioning guide](https://www.baeldung.com/rest-versioning
 To run the application, you can run the following command in the root folder of the project:
 
 ```shell script
-mvn clean install && \
+mvn clean package && \
   java -jar controller/target/controller-1.0.jar
 ```
 
