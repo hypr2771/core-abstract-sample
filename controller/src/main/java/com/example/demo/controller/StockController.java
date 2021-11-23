@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.out.StockDTO;
+import com.example.demo.dto.out.Stock;
 import com.example.demo.facade.StockFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,13 @@ public class StockController {
   private final StockFacade stockFacade;
 
   @GetMapping
-  public ResponseEntity<StockDTO> getStock(@RequestHeader Integer version){
+  public ResponseEntity<Stock> getStock(@RequestHeader Integer version){
     return ResponseEntity.ok(stockFacade.get(version).getStock());
   }
 
   @PatchMapping
-  public ResponseEntity<Void> patchStock(@RequestBody @Valid StockDTO stockDTO, @RequestHeader Integer version){
-    stockFacade.get(version).patchStock(stockDTO);
+  public ResponseEntity<Void> patchStock(@RequestBody @Valid Stock stock, @RequestHeader Integer version){
+    stockFacade.get(version).patchStock(stock);
     return ResponseEntity.ok().build();
   }
 }

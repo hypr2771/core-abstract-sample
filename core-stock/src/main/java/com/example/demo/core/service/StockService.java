@@ -1,13 +1,10 @@
 package com.example.demo.core.service;
 
-import com.example.demo.dto.common.StockShoe;
-import com.example.demo.dto.out.StockDTO;
-
-import java.util.List;
+import com.example.demo.dto.out.Stock;
 
 public interface StockService {
 
-    StockDTO getStock();
+    Stock getStock();
 
-    void patchStock(StockDTO stockDTO);
+    void patchStock(Stock stock);
 }

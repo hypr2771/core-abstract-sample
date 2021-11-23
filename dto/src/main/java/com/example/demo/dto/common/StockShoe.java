@@ -16,5 +16,10 @@ public class StockShoe{
     private String color;
     private Integer quantity;
 
-
+    public StockShoe(String name, BigInteger size, String color, Integer quantity) {
+        this.name = name;
+        this.size = size;
+        this.color = color;
+        this.quantity = quantity;
+    }
 }

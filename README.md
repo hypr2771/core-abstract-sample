@@ -14,6 +14,9 @@
 - [Validating the application](#validating-the-application)
   - [Version 1](#version-1)
   - [Version 2](#version-2)
+- [Stock shoes](#stock-shoes)
+  - [Get stock shoes version 1](#get-stock-shoes-version-1)
+  - [Patch stock shoes version 1](#patch-stock-shoes-version-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -375,6 +378,78 @@ which should answer (see `com.example.demo.core.StockCoreLegacy.search`):
 {"shoes":[{"name":"New shoe","size":2,"color":"BLACK"}]}
 ```
 
+# Stock shoes
+
+This functionality allows managing the stock of a physical store. Either to get the shoe stock or to modify it.
+
+## Get stock shoes version 1
+
+This endpoint returns the current stock status of the store. this can be (EMPTY, FULL or SOME).
+
+To test version 1, you can call:
+
+``shell script
+curl -X GET "http://localhost:8080/stock" -H "version: 1"
+``
+
+and get for example:
+
+```json
+{ 
+"state": "SOME", 
+"shoes": [ 
+{ 
+"color": "BLACK", 
+"size": 40, 
+"quantity": 10 
+}, 
+{ 
+"color": "BLACK", 
+"size": 41, 
+"quantity": 0 
+}, 
+{ 
+"color": "BLUE", 
+"size": 39, 
+"quantity": 10 
+} 
+] 
+}
+```
+
+## Patch stock shoes version 1
+
+This endpoint modifies the current stock with a maximum of 30 packages. In the event that you want to add more, an error will be thrown.
+
+To test version 1, you can call:
+
+``shell script
+curl --location --request PATCH 'http://localhost:8080/stock' \
+--header 'Version: 1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"shoes": [
+{
+"name": "Nike SB",
+"size": 40,
+"color": "BLUE",
+"quantity": 10
+},
+{
+"name": "Adidas",
+"size": 40,
+"color": "RED",
+"quantity": 10
+},
+{
+"name": "Puma",
+"size": 40,
+"color": "WHITE",
+"quantity": 10
+}
+]
+}'"
+``
 # Conclusion
 
 We can see that both result are structurally identical, while the code is obviously different.

@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.core.repository.StockRepository;
-import com.example.demo.core.repository.model.Stock;
+import com.example.demo.core.repository.model.StockModel;
 import com.example.demo.core.repository.model.StockId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,9 +26,9 @@ public class MultipleCoreImplemSampleApplication implements CommandLineRunner {
     StockId stockId2 = new StockId("Adidas", BigInteger.valueOf(40l), "RED");
     StockId stockId3 = new StockId("Puma", BigInteger.valueOf(40l), "WHITE");
 
-    Stock stock1 = new Stock(stockId1, 9);
-    Stock stock2 = new Stock(stockId2, 10);
-    Stock stock3 = new Stock(stockId3, 10);
+    StockModel stock1 = new StockModel(stockId1, 9);
+    StockModel stock2 = new StockModel(stockId2, 10);
+    StockModel stock3 = new StockModel(stockId3, 10);
 
     stockRepository.save(stock1);
     stockRepository.save(stock2);

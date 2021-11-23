@@ -3,20 +3,18 @@ package com.example.demo.core.service;
 import com.example.demo.core.mapper.StockMapper;
 import com.example.demo.core.mapper.StockMapperImpl;
 import com.example.demo.core.repository.StockRepository;
-import com.example.demo.core.repository.model.Stock;
+import com.example.demo.core.repository.model.StockModel;
 import com.example.demo.dto.common.StockShoe;
-import com.example.demo.dto.in.ShoeFilter;
-import com.example.demo.dto.out.StockDTO;
-import com.example.demo.dto.out.StockDTO.State;
+import com.example.demo.dto.out.Stock;
+import com.example.demo.dto.out.Stock.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.util.List;
 
-import static com.example.demo.dto.out.StockDTO.State.EMPTY;
-import static com.example.demo.dto.out.StockDTO.State.FULL;
-import static com.example.demo.dto.out.StockDTO.State.SOME;
+import static com.example.demo.dto.out.Stock.State.EMPTY;
+import static com.example.demo.dto.out.Stock.State.FULL;
+import static com.example.demo.dto.out.Stock.State.SOME;
 
 @Service
 public class StockServiceLegacyImpl implements StockService {
@@ -27,23 +25,23 @@ public class StockServiceLegacyImpl implements StockService {
     private StockMapper stockMapper = new StockMapperImpl();
 
     @Override
-    public StockDTO getStock() {
+    public Stock getStock() {
 
-        List<Stock> stock = stockRepository.findAll();
+        List<StockModel> stock = stockRepository.findAll();
 
         List<StockShoe> stockShoes = stockMapper.toListStockShoes(stock);
 
         Integer totalStock = stockShoes.stream().mapToInt(value -> value.getQuantity()).sum();
 
-        return StockDTO.builder()
+        return Stock.builder()
                 .shoes(stockShoes)
                 .state(getState(totalStock))
                 .build();
     }
 
     @Override
-    public void patchStock(StockDTO stockDTO) {
-        List<Stock> stock = stockMapper.toListStock(stockDTO.getShoes());
+    public void patchStock(Stock stockDTO) {
+        List<StockModel> stock = stockMapper.toListStock(stockDTO.getShoes());
 
         Integer total = stock.stream().mapToInt(value -> value.getQuantity()).sum();
 

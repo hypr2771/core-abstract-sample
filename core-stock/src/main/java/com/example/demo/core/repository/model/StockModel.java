@@ -8,13 +8,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Value
 @Data
 @Document(collection = "stock")
-public class Stock {
+public class StockModel {
 
     @Id
     private StockId stockId;
     private Integer quantity;
 
-    public Stock(StockId stockId, Integer quantity) {
+    public StockModel(StockId stockId, Integer quantity) {
         this.stockId = stockId;
         this.quantity = quantity;
     }

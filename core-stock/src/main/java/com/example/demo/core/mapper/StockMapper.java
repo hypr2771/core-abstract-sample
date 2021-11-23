@@ -1,6 +1,6 @@
 package com.example.demo.core.mapper;
 
-import com.example.demo.core.repository.model.Stock;
+import com.example.demo.core.repository.model.StockModel;
 import com.example.demo.dto.common.StockShoe;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,15 +14,15 @@ public interface StockMapper {
     @Mapping(source = "stockId.size", target = "size")
     @Mapping(source = "stockId.color", target = "color")
     @Mapping(source = "quantity", target = "quantity")
-    StockShoe toStockShoe (Stock stock);
+    StockShoe toStockShoe (StockModel stock);
 
     @Mapping(source = "name", target = "stockId.name")
     @Mapping(source = "size", target = "stockId.size")
     @Mapping(source = "color", target = "stockId.color")
     @Mapping(source = "quantity", target = "quantity")
-    Stock toStock (StockShoe stockShoe);
+    StockModel toStock (StockShoe stockShoe);
 
-    List<StockShoe> toListStockShoes(List<Stock> stock);
+    List<StockShoe> toListStockShoes(List<StockModel> stock);
 
-    List<Stock> toListStock(List<StockShoe> stockShoes);
+    List<StockModel> toListStock(List<StockShoe> stockShoes);
 }

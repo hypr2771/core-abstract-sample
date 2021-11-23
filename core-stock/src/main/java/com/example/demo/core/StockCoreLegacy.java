@@ -1,7 +1,7 @@
 package com.example.demo.core;
 
 import com.example.demo.core.service.StockService;
-import com.example.demo.dto.out.StockDTO;
+import com.example.demo.dto.out.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -12,12 +12,12 @@ public class StockCoreLegacy extends AbstractStockCore {
   private StockService stockService;
 
   @Override
-  public StockDTO getStock() {
+  public Stock getStock() {
     return stockService.getStock();
   }
 
   @Override
-  public void patchStock(StockDTO stockDTO) {
-    stockService.patchStock(stockDTO);
+  public void patchStock(Stock stock) {
+    stockService.patchStock(stock);
   }
 }

@@ -1,10 +1,10 @@
 package com.example.demo.core;
 
-import com.example.demo.dto.out.StockDTO;
+import com.example.demo.dto.out.Stock;
 
 public interface StockCore extends BaseCore{
 
-  StockDTO getStock();
+  Stock getStock();
 
-  void patchStock(StockDTO stockDTO);
+  void patchStock(Stock stock);
 }
