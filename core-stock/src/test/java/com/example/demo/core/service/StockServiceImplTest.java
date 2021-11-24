@@ -50,8 +50,13 @@ public class StockServiceImplTest {
 
     @Test
     public void shouldSuccessGetStock(){
-        val stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-        val stock = new StockEntity(stockId, 9);
+        val stockId = StockId.builder()
+                .name("NikeSB")
+                .size(BigInteger.valueOf(40l))
+                .color("BLUE").build();
+        val stock = StockEntity.builder()
+                .stockId(stockId)
+                .quantity(9).build();
 
         val stockList = Arrays.asList(stock);
 
@@ -69,9 +74,23 @@ public class StockServiceImplTest {
 
     @Test
     public void shouldSuccessUpdateStock(){
-        val stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
-        val stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
-        val stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 10);
+        val stockShoe1 = StockShoe.builder()
+                .name("Nike SB")
+                .size(BigInteger.valueOf(40l))
+                .color("BLUE")
+                .quantity(10).build();
+
+        val stockShoe2 = StockShoe.builder()
+                .name("Adidas")
+                .size(BigInteger.valueOf(40l))
+                .color("RED")
+                .quantity(10).build();
+
+        val stockShoe3 = StockShoe.builder()
+                .name("Puma")
+                .size(BigInteger.valueOf(40l))
+                .color("WHITE")
+                .quantity(10).build();
 
         val stockShoes = Arrays.asList(stockShoe1, stockShoe2, stockShoe3);
 
@@ -85,9 +104,23 @@ public class StockServiceImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailUpdateStockByMore30Packages(){
-        val stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
-        val stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
-        val stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 11);
+        val stockShoe1 = StockShoe.builder()
+                .name("Nike SB")
+                .size(BigInteger.valueOf(40l))
+                .color("BLUE")
+                .quantity(10).build();
+
+        val stockShoe2 = StockShoe.builder()
+                .name("Adidas")
+                .size(BigInteger.valueOf(40l))
+                .color("RED")
+                .quantity(10).build();
+
+        val stockShoe3 = StockShoe.builder()
+                .name("Puma")
+                .size(BigInteger.valueOf(40l))
+                .color("WHITE")
+                .quantity(11).build();
 
         val stockShoes = Arrays.asList(stockShoe1, stockShoe2, stockShoe3);
 

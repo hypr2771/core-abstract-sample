@@ -10,6 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>controller</artifactId>
+  <name>store-api-controller</name>
 
   <dependencies>
     <dependency>
@@ -44,10 +45,18 @@
   </dependencies>
 
   <build>
+    <finalName>store-api-controller</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <mainClass>com.example.demo.MultipleCoreImplemSampleApplication</mainClass>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

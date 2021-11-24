@@ -24,8 +24,13 @@ public class StockMapperImplTest {
 
     @Test
     public void shouldSuccessToStockShoe(){
-        val stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-        val stock = new StockEntity(stockId, 9);
+        val stockId = StockId.builder()
+                .name("NikeSB")
+                .size(BigInteger.valueOf(40l))
+                .color("BLUE").build();
+        val stock = StockEntity.builder()
+                .stockId(stockId)
+                .quantity(9).build();
 
         val stockShoe = stockMapper.toStockShoe(stock);
 
@@ -38,7 +43,11 @@ public class StockMapperImplTest {
 
     @Test
     public void shouldSuccessToStock(){
-        val stockShoe = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
+        val stockShoe = StockShoe.builder()
+                .name("Nike SB")
+                .size(BigInteger.valueOf(40l))
+                .color("BLUE")
+                .quantity(10).build();
 
         val stock = stockMapper.toStock(stockShoe);
 
