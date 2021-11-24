@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: Shoe shop API
+  description: API for shoe store management
+  version: 1.0.0
+
+paths:
+  /stock:
+    get:
+      tags:
+        - Stock
+      operationId: getStock
+      summary: Get current shoe stock from the store
+      description: This service fetches the current shoe stock in the store. In the event that there are no shoes, EMPTY will be returned, in the event that there are less than 30, SOME will be returned and in the event that there are 30, FULL will be returned.
+      responses:
+        200:
+          $ref: '#/components/responses/stock'
+        400:
+          $ref: '#/components/responses/bad_request'
+        500:
+          $ref: '#/components/responses/internal_error'
+    patch:
+      tags:
+        - Stock
+      operationId: updateStock
+      summary: Update current shoe stock from the store
+      description: This service modifies the current stock of shoes in the store. The maximum capacity allowed in total is 30 packages. In the event that there are more, an error will be thrown.
+      requestBody:
+        description: Stock shoe to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/stock'
+        required: true
+      responses:
+        204:
+          $ref: '#/components/responses/void_rs'
+        400:
+          $ref: '#/components/responses/bad_request'
+        500:
+          $ref: '#/components/responses/internal_error'
+
+components:
+  responses:
+    void_rs:
+      description: Successful operation response with no content.
+    stock:
+      description: Returns the current shoe stock if the operation is successful
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/stock'
+    bad_request:
+      description: In the event that the data necessary to carry out the operation are not sent or they have a wrong format
+    internal_error:
+      description: In case of internal server error
+
+  schemas:
+    stock:
+      type: object
+      required:
+        - client_number
+        - client_id
+      properties:
+        state:
+          type: string
+          enum:
+            - EMPTY
+            - SOME
+            - FULL
+          description:
+            Stock status
+            EMPTY - 0
+            SOME -  more than 0
+            FULL - 30
+          readOnly: true
+        shoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/stock_shoe'
+
+    stock_shoe:
+      type: object
+      required:
+        - client_number
+        - client_id
+      properties:
+        name:
+          type: string
+          description: Name of shoe
+        size:
+          type: integer
+          description: Size of shoe
+        color:
+          type: string
+          description: Color of shoe
+        quantity:
+          type: integer
+          description: Quantity of shoes
+
