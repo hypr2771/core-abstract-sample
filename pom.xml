@@ -80,6 +80,28 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.sonarsource.scanner.maven</groupId>
+      <artifactId>sonar-maven-plugin</artifactId>
+      <version>3.9.1.2184</version>
+    </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>sonar</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <sonar.host.url> http://localhost:9000 </sonar.host.url>
+
+        <!--  <sonar.jdbc.url>your database URL</sonar.jdbc.url>
+       <sonar.jdbc.driver>Your database driver</sonar.jdbc.driver>
+       <sonar.jdbc.username>DB username</sonar.jdbc.username>
+       <sonar.jdbc.password>db password</sonar.jdbc.password>        -->
+
+      </properties>
+    </profile>
+  </profiles>
 </project>
