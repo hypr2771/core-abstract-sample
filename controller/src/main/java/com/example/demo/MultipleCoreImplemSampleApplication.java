@@ -3,12 +3,14 @@ package com.example.demo;
 import com.example.demo.core.repository.StockRepository;
 import com.example.demo.core.repository.entity.StockEntity;
 import com.example.demo.core.repository.entity.StockId;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class MultipleCoreImplemSampleApplication implements CommandLineRunner {
@@ -22,16 +24,14 @@ public class MultipleCoreImplemSampleApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    StockId stockId1 = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-    StockId stockId2 = new StockId("Adidas", BigInteger.valueOf(40l), "RED");
-    StockId stockId3 = new StockId("Puma", BigInteger.valueOf(40l), "WHITE");
+    val stockId1 = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
+    val stockId2 = new StockId("Adidas", BigInteger.valueOf(40l), "RED");
+    val stockId3 = new StockId("Puma", BigInteger.valueOf(40l), "WHITE");
 
-    StockEntity stock1 = new StockEntity(stockId1, 9);
-    StockEntity stock2 = new StockEntity(stockId2, 10);
-    StockEntity stock3 = new StockEntity(stockId3, 10);
+    val stock1 = new StockEntity(stockId1, 9);
+    val stock2 = new StockEntity(stockId2, 10);
+    val stock3 = new StockEntity(stockId3, 10);
 
-    stockRepository.save(stock1);
-    stockRepository.save(stock2);
-    stockRepository.save(stock3);
+    stockRepository.saveAll(Arrays.asList(stock1, stock2, stock3));
   }
 }

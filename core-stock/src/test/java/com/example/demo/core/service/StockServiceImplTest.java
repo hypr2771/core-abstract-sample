@@ -6,6 +6,7 @@ import com.example.demo.core.repository.entity.StockEntity;
 import com.example.demo.core.repository.entity.StockId;
 import com.example.demo.dto.common.StockShoe;
 import com.example.demo.dto.out.Stock;
+import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static com.example.demo.dto.out.Stock.State.FULL;
 import static com.example.demo.dto.out.Stock.State.SOME;
@@ -51,15 +50,14 @@ public class StockServiceImplTest {
 
     @Test
     public void shouldSuccessGetStock(){
-        StockId stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-        StockEntity stock = new StockEntity(stockId, 9);
+        val stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
+        val stock = new StockEntity(stockId, 9);
 
-        List<StockEntity> stockList = new ArrayList<>();
-        stockList.add(stock);
+        val stockList = Arrays.asList(stock);
 
         when(stockRepository.findAll()).thenReturn(stockList);
 
-        Stock stockDTO = stockService.getStock();
+        val stockDTO = stockService.getStock();
 
         assertNotNull(stockDTO);
         assertEquals(stock.getStockId().getName(), stockDTO.getShoes().stream().findFirst().get().getName());
@@ -71,13 +69,13 @@ public class StockServiceImplTest {
 
     @Test
     public void shouldSuccessUpdateStock(){
-        StockShoe stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
-        StockShoe stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
-        StockShoe stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 10);
+        val stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
+        val stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
+        val stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 10);
 
-        List<StockShoe> stockShoes = Arrays.asList(stockShoe1, stockShoe2, stockShoe3);
+        val stockShoes = Arrays.asList(stockShoe1, stockShoe2, stockShoe3);
 
-        Stock stock = new Stock(FULL, stockShoes);
+        val stock = new Stock(FULL, stockShoes);
 
         stockService.updateStock(stock);
 
@@ -87,13 +85,13 @@ public class StockServiceImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailUpdateStockByMore30Packages(){
-        StockShoe stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
-        StockShoe stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
-        StockShoe stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 11);
+        val stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
+        val stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
+        val stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 11);
 
-        List<StockShoe> stockShoes = Arrays.asList(stockShoe1, stockShoe2, stockShoe3);
+        val stockShoes = Arrays.asList(stockShoe1, stockShoe2, stockShoe3);
 
-        Stock stock = new Stock(FULL, stockShoes);
+        val stock = new Stock(FULL, stockShoes);
 
         stockService.updateStock(stock);
 

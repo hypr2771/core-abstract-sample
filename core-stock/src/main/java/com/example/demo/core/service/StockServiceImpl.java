@@ -3,14 +3,11 @@ package com.example.demo.core.service;
 import com.example.demo.core.mapper.StockMapper;
 import com.example.demo.core.mapper.StockMapperImpl;
 import com.example.demo.core.repository.StockRepository;
-import com.example.demo.core.repository.entity.StockEntity;
-import com.example.demo.dto.common.StockShoe;
 import com.example.demo.dto.out.Stock;
 import com.example.demo.dto.out.Stock.State;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static com.example.demo.dto.out.Stock.State.EMPTY;
 import static com.example.demo.dto.out.Stock.State.FULL;
@@ -27,11 +24,11 @@ public class StockServiceImpl implements StockService {
     @Override
     public Stock getStock() {
 
-        List<StockEntity> stock = stockRepository.findAll();
+        val stock = stockRepository.findAll();
 
-        List<StockShoe> stockShoes = stockMapper.toListStockShoes(stock);
+        val stockShoes = stockMapper.toListStockShoes(stock);
 
-        Integer totalStock = stockShoes.stream().mapToInt(value -> value.getQuantity()).sum();
+        val totalStock = stockShoes.stream().mapToInt(value -> value.getQuantity()).sum();
 
         return Stock.builder()
                 .shoes(stockShoes)
@@ -41,9 +38,9 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void updateStock(Stock stockDTO) {
-        List<StockEntity> stock = stockMapper.toListStock(stockDTO.getShoes());
+        val stock = stockMapper.toListStock(stockDTO.getShoes());
 
-        Integer total = stock.stream().mapToInt(value -> value.getQuantity()).sum();
+        val total = stock.stream().mapToInt(value -> value.getQuantity()).sum();
 
         if (total > 30){
             throw new IllegalArgumentException("The stock is greater than allowed");

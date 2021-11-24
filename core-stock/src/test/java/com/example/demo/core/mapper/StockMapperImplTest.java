@@ -3,6 +3,7 @@ package com.example.demo.core.mapper;
 import com.example.demo.core.repository.entity.StockEntity;
 import com.example.demo.core.repository.entity.StockId;
 import com.example.demo.dto.common.StockShoe;
+import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,10 +24,10 @@ public class StockMapperImplTest {
 
     @Test
     public void shouldSuccessToStockShoe(){
-        StockId stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-        StockEntity stock = new StockEntity(stockId, 9);
+        val stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
+        val stock = new StockEntity(stockId, 9);
 
-        StockShoe stockShoe = stockMapper.toStockShoe(stock);
+        val stockShoe = stockMapper.toStockShoe(stock);
 
         assertNotNull(stockShoe);
         assertEquals(stock.getQuantity(), stockShoe.getQuantity());
@@ -37,9 +38,9 @@ public class StockMapperImplTest {
 
     @Test
     public void shouldSuccessToStock(){
-        StockShoe stockShoe = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
+        val stockShoe = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
 
-        StockEntity stock = stockMapper.toStock(stockShoe);
+        val stock = stockMapper.toStock(stockShoe);
 
         assertNotNull(stock);
         assertEquals(stockShoe.getQuantity(), stock.getQuantity());
