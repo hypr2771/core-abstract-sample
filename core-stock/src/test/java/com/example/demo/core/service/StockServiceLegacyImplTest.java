@@ -2,8 +2,8 @@ package com.example.demo.core.service;
 
 import com.example.demo.core.mapper.StockMapperImpl;
 import com.example.demo.core.repository.StockRepository;
-import com.example.demo.core.repository.model.StockId;
-import com.example.demo.core.repository.model.StockModel;
+import com.example.demo.core.repository.entity.StockEntity;
+import com.example.demo.core.repository.entity.StockId;
 import com.example.demo.dto.common.StockShoe;
 import com.example.demo.dto.out.Stock;
 import org.junit.Before;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(classes = StockServiceLegacyImpl.class)
-public class StockModelServiceLegacyImplTest {
+public class StockServiceLegacyImplTest {
 
     @InjectMocks
     private StockServiceLegacyImpl stockServiceLegacy;
@@ -52,9 +52,9 @@ public class StockModelServiceLegacyImplTest {
     @Test
     public void shouldSuccessGetStock(){
         StockId stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-        StockModel stock = new StockModel(stockId, 9);
+        StockEntity stock = new StockEntity(stockId, 9);
 
-        List<StockModel> stockList = new ArrayList<>();
+        List<StockEntity> stockList = new ArrayList<>();
         stockList.add(stock);
 
         when(stockRepository.findAll()).thenReturn(stockList);

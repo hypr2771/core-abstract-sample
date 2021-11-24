@@ -1,4 +1,4 @@
-package com.example.demo.core.repository.model;
+package com.example.demo.core.repository.entity;
 
 import lombok.Data;
 import lombok.Value;
@@ -8,13 +8,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Value
 @Data
 @Document(collection = "stock")
-public class StockModel {
+public class StockEntity {
 
     @Id
     private StockId stockId;
     private Integer quantity;
 
-    public StockModel(StockId stockId, Integer quantity) {
+    public StockEntity(StockId stockId, Integer quantity) {
         this.stockId = stockId;
         this.quantity = quantity;
     }

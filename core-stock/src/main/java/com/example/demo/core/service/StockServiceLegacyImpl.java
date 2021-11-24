@@ -3,7 +3,7 @@ package com.example.demo.core.service;
 import com.example.demo.core.mapper.StockMapper;
 import com.example.demo.core.mapper.StockMapperImpl;
 import com.example.demo.core.repository.StockRepository;
-import com.example.demo.core.repository.model.StockModel;
+import com.example.demo.core.repository.entity.StockEntity;
 import com.example.demo.dto.common.StockShoe;
 import com.example.demo.dto.out.Stock;
 import com.example.demo.dto.out.Stock.State;
@@ -27,7 +27,7 @@ public class StockServiceLegacyImpl implements StockService {
     @Override
     public Stock getStock() {
 
-        List<StockModel> stock = stockRepository.findAll();
+        List<StockEntity> stock = stockRepository.findAll();
 
         List<StockShoe> stockShoes = stockMapper.toListStockShoes(stock);
 
@@ -41,7 +41,7 @@ public class StockServiceLegacyImpl implements StockService {
 
     @Override
     public void patchStock(Stock stockDTO) {
-        List<StockModel> stock = stockMapper.toListStock(stockDTO.getShoes());
+        List<StockEntity> stock = stockMapper.toListStock(stockDTO.getShoes());
 
         Integer total = stock.stream().mapToInt(value -> value.getQuantity()).sum();
 

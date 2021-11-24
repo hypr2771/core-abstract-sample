@@ -1,7 +1,7 @@
 package com.example.demo.core.mapper;
 
-import com.example.demo.core.repository.model.StockId;
-import com.example.demo.core.repository.model.StockModel;
+import com.example.demo.core.repository.entity.StockEntity;
+import com.example.demo.core.repository.entity.StockId;
 import com.example.demo.dto.common.StockShoe;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(classes = StockMapperImpl.class)
-public class StockModelMapperImplTest {
+public class StockMapperImplTest {
 
     @InjectMocks
     private StockMapperImpl stockMapper;
@@ -24,7 +24,7 @@ public class StockModelMapperImplTest {
     @Test
     public void shouldSuccessToStockShoe(){
         StockId stockId = new StockId("Nike SB", BigInteger.valueOf(40l), "BLUE");
-        StockModel stock = new StockModel(stockId, 9);
+        StockEntity stock = new StockEntity(stockId, 9);
 
         StockShoe stockShoe = stockMapper.toStockShoe(stock);
 
@@ -39,7 +39,7 @@ public class StockModelMapperImplTest {
     public void shouldSuccessToStock(){
         StockShoe stockShoe = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
 
-        StockModel stock = stockMapper.toStock(stockShoe);
+        StockEntity stock = stockMapper.toStock(stockShoe);
 
         assertNotNull(stock);
         assertEquals(stockShoe.getQuantity(), stock.getQuantity());

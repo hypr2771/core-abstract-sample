@@ -1,4 +1,4 @@
-package com.example.demo.core.repository.model;
+package com.example.demo.core.repository.entity;
 
 import lombok.Value;
 
