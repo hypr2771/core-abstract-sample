@@ -40,7 +40,7 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public void patchStock(Stock stockDTO) {
+    public void updateStock(Stock stockDTO) {
         List<StockEntity> stock = stockMapper.toListStock(stockDTO.getShoes());
 
         Integer total = stock.stream().mapToInt(value -> value.getQuantity()).sum();

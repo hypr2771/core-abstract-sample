@@ -70,7 +70,7 @@ public class StockServiceImplTest {
     }
 
     @Test
-    public void shouldSuccessPatchStock(){
+    public void shouldSuccessUpdateStock(){
         StockShoe stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
         StockShoe stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
         StockShoe stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 10);
@@ -79,14 +79,14 @@ public class StockServiceImplTest {
 
         Stock stock = new Stock(FULL, stockShoes);
 
-        stockService.patchStock(stock);
+        stockService.updateStock(stock);
 
         verify(stockRepository, times(1)).deleteAll();
         verify(stockRepository, times(1)).saveAll(any());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldFailPatchStockByMore30Packages(){
+    public void shouldFailUpdateStockByMore30Packages(){
         StockShoe stockShoe1 = new StockShoe("Nike SB", BigInteger.valueOf(40l), "BLUE", 10);
         StockShoe stockShoe2 = new StockShoe("Adidas", BigInteger.valueOf(40l), "RED", 10);
         StockShoe stockShoe3 = new StockShoe("Puma", BigInteger.valueOf(40l), "WHITE", 11);
@@ -95,7 +95,7 @@ public class StockServiceImplTest {
 
         Stock stock = new Stock(FULL, stockShoes);
 
-        stockService.patchStock(stock);
+        stockService.updateStock(stock);
 
         verify(stockRepository, never()).deleteAll();
         verify(stockRepository, never()).saveAll(any());

@@ -17,7 +17,7 @@ public class StockCoreImpl extends AbstractStockCore {
   }
 
   @Override
-  public void patchStock(Stock stock) {
-    stockService.patchStock(stock);
+  public void updateStock(Stock stock) {
+    stockService.updateStock(stock);
   }
 }

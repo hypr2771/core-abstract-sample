@@ -6,5 +6,5 @@ public interface StockService {
 
     Stock getStock();
 
-    void patchStock(Stock stock);
+    void updateStock(Stock stock);
 }

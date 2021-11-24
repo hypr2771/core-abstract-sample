@@ -6,5 +6,5 @@ public interface StockCore extends BaseCore{
 
   Stock getStock();
 
-  void patchStock(Stock stock);
+  void updateStock(Stock stock);
 }

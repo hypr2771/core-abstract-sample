@@ -26,8 +26,8 @@ public class StockController {
   }
 
   @PatchMapping
-  public ResponseEntity<Void> patchStock(@RequestBody @Valid Stock stock, @RequestHeader Integer version){
-    stockFacade.get(version).patchStock(stock);
+  public ResponseEntity<Void> updateStock(@RequestBody @Valid Stock stock, @RequestHeader Integer version){
+    stockFacade.get(version).updateStock(stock);
     return ResponseEntity.ok().build();
   }
 }
