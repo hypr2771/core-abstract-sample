@@ -12,6 +12,13 @@ paths:
       operationId: getStock
       summary: Get current shoe stock from the store
       description: This service fetches the current shoe stock in the store. In the event that there are no shoes, EMPTY will be returned, in the event that there are less than 30, SOME will be returned and in the event that there are 30, FULL will be returned.
+      parameters:
+        - in: header
+          name: Version
+          description: Service version
+          schema:
+            type: integer
+          required: true
       responses:
         200:
           $ref: '#/components/responses/stock'
@@ -25,6 +32,13 @@ paths:
       operationId: updateStock
       summary: Update current shoe stock from the store
       description: This service modifies the current stock of shoes in the store. The maximum capacity allowed in total is 30 packages. In the event that there are more, an error will be thrown.
+      parameters:
+        - in: header
+          name: Version
+          description: Service version
+          schema:
+            type: integer
+          required: true
       requestBody:
         description: Stock shoe to update
         content:

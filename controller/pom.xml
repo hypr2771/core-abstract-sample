@@ -16,6 +16,7 @@
     <swagger-annotations-version>2.1.11</swagger-annotations-version>
     <springfox-version>2.9.2</springfox-version>
     <jackson-databind-nullable>0.2.1</jackson-databind-nullable>
+    <springdoc-openapi-ui-version>1.5.2</springdoc-openapi-ui-version>
   </properties>
 
   <dependencies>
@@ -67,6 +68,16 @@
       <artifactId>swagger-annotations</artifactId>
       <version>${swagger-annotations-version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi-ui-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi-ui-version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -84,9 +95,9 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.openapitools</groupId>
-        <artifactId>openapi-generator-maven-plugin</artifactId>
-        <version>4.2.3</version>
+        <groupId>io.swagger.codegen.v3</groupId>
+        <artifactId>swagger-codegen-maven-plugin</artifactId>
+        <version>3.0.18</version>
         <executions>
           <execution>
             <goals>
@@ -96,14 +107,14 @@
               <inputSpec>
                 ${project.basedir}/src/main/resources/openapi.yml
               </inputSpec>
-              <generatorName>spring</generatorName>
+              <language>spring</language>
+              <output>${project.build.directory}/generated-sources</output>
+              <generateSupportingFiles>false</generateSupportingFiles>
               <apiPackage>com.example.demo.controller.api</apiPackage>
-              <modelPackage>com.example.demo.controller.dto</modelPackage>
-              <supportingFilesToGenerate>
-                ApiUtil.java
-              </supportingFilesToGenerate>
+              <modelPackage>com.example.demo.controller.rdto</modelPackage>
+              <modelNameSuffix>RDTO</modelNameSuffix>
               <configOptions>
-                <delegatePattern>true</delegatePattern>
+                <interfaceOnly>true</interfaceOnly>
               </configOptions>
             </configuration>
           </execution>

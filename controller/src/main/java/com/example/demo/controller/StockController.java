@@ -1,33 +1,32 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.out.Stock;
+import com.example.demo.controller.api.StockApi;
+import com.example.demo.controller.rdto.StockRDTO;
 import com.example.demo.facade.StockFacade;
+import com.example.demo.mapper.StockControllerMapperImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@Controller
-@RequestMapping(path = "/stock")
+@RestController
 @RequiredArgsConstructor
-public class StockController {
+public class StockController implements StockApi {
 
   private final StockFacade stockFacade;
 
-  @GetMapping
-  public ResponseEntity<Stock> getStock(@RequestHeader Integer version){
-    return ResponseEntity.ok(stockFacade.get(version).getStock());
+  private StockControllerMapperImpl stockControllerMapper = new StockControllerMapperImpl();
+
+  @Override
+  public ResponseEntity<StockRDTO> getStock(Integer version) {
+    StockRDTO stockRDTO = stockControllerMapper.toStockRDTO(stockFacade.get(version).getStock());
+    return ResponseEntity.ok(stockRDTO);
   }
 
-  @PatchMapping
-  public ResponseEntity<Void> updateStock(@RequestBody @Valid Stock stock, @RequestHeader Integer version){
-    stockFacade.get(version).updateStock(stock);
+  @Override
+  public ResponseEntity<Void> updateStock(@Valid StockRDTO body, Integer version) {
+    stockFacade.get(version).updateStock(stockControllerMapper.toStock(body));
     return ResponseEntity.ok().build();
   }
 }
