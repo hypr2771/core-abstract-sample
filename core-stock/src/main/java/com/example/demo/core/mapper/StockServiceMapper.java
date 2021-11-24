@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper
-public interface StockMapper {
+public interface StockServiceMapper {
 
     @Mapping(source = "stockId.name", target = "name")
     @Mapping(source = "stockId.size", target = "size")

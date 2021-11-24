@@ -1,7 +1,6 @@
 package com.example.demo.core.service;
 
-import com.example.demo.core.mapper.StockMapper;
-import com.example.demo.core.mapper.StockMapperImpl;
+import com.example.demo.core.mapper.StockServiceMapper;
 import com.example.demo.core.repository.StockRepository;
 import com.example.demo.dto.out.Stock;
 import com.example.demo.dto.out.Stock.State;
@@ -19,14 +18,15 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private StockRepository stockRepository;
 
-    private StockMapper stockMapper = new StockMapperImpl();
+    @Autowired
+    private StockServiceMapper stockServiceMapper;
 
     @Override
     public Stock getStock() {
 
         val stock = stockRepository.findAll();
 
-        val stockShoes = stockMapper.toListStockShoes(stock);
+        val stockShoes = stockServiceMapper.toListStockShoes(stock);
 
         val totalStock = stockShoes.stream().mapToInt(value -> value.getQuantity()).sum();
 
@@ -38,7 +38,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void updateStock(Stock stockDTO) {
-        val stock = stockMapper.toListStock(stockDTO.getShoes());
+        val stock = stockServiceMapper.toListStock(stockDTO.getShoes());
 
         val total = stock.stream().mapToInt(value -> value.getQuantity()).sum();
 

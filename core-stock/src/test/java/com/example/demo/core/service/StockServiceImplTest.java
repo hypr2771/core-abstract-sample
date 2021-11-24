@@ -1,6 +1,6 @@
 package com.example.demo.core.service;
 
-import com.example.demo.core.mapper.StockMapperImpl;
+import com.example.demo.core.mapper.StockServiceMapperImpl;
 import com.example.demo.core.repository.StockRepository;
 import com.example.demo.core.repository.entity.StockEntity;
 import com.example.demo.core.repository.entity.StockId;
@@ -41,7 +41,7 @@ public class StockServiceImplTest {
     private StockRepository stockRepository;
 
     @Spy
-    private StockMapperImpl stockMapper;
+    private StockServiceMapperImpl stockMapper;
 
     @Before
     public void setUp() {

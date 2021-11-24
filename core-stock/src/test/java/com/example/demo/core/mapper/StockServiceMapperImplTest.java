@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest(classes = StockMapperImpl.class)
-public class StockMapperImplTest {
+@SpringBootTest(classes = StockServiceMapperImpl.class)
+public class StockServiceMapperImplTest {
 
     @InjectMocks
-    private StockMapperImpl stockMapper;
+    private StockServiceMapperImpl stockServiceMapper;
 
     @Test
     public void shouldSuccessToStockShoe(){
@@ -32,7 +32,7 @@ public class StockMapperImplTest {
                 .stockId(stockId)
                 .quantity(9).build();
 
-        val stockShoe = stockMapper.toStockShoe(stock);
+        val stockShoe = stockServiceMapper.toStockShoe(stock);
 
         assertNotNull(stockShoe);
         assertEquals(stock.getQuantity(), stockShoe.getQuantity());
@@ -49,7 +49,7 @@ public class StockMapperImplTest {
                 .color("BLUE")
                 .quantity(10).build();
 
-        val stock = stockMapper.toStock(stockShoe);
+        val stock = stockServiceMapper.toStock(stockShoe);
 
         assertNotNull(stock);
         assertEquals(stockShoe.getQuantity(), stock.getQuantity());
