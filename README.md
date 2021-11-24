@@ -372,7 +372,7 @@ To test version 2, you can call:
 curl -X GET "http://localhost:8080/shoes/search" -H "version: 2"
 ```
 
-which should answer (see `com.example.demo.core.StockCoreLegacy.search`):
+which should answer (see `com.example.demo.core.StockCoreImpl.search`):
 
 ```json
 {"shoes":[{"name":"New shoe","size":2,"color":"BLACK"}]}

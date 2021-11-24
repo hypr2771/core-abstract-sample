@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Implementation(version = 1)
-public class StockCoreLegacy extends AbstractStockCore {
+public class StockCoreImpl extends AbstractStockCore {
 
   @Autowired
   private StockService stockService;

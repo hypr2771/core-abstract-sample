@@ -17,7 +17,7 @@ import static com.example.demo.dto.out.Stock.State.FULL;
 import static com.example.demo.dto.out.Stock.State.SOME;
 
 @Service
-public class StockServiceLegacyImpl implements StockService {
+public class StockServiceImpl implements StockService {
 
     @Autowired
     private StockRepository stockRepository;

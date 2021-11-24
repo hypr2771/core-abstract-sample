@@ -32,11 +32,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest(classes = StockServiceLegacyImpl.class)
-public class StockServiceLegacyImplTest {
+@SpringBootTest(classes = StockServiceImpl.class)
+public class StockServiceImplTest {
 
     @InjectMocks
-    private StockServiceLegacyImpl stockServiceLegacy;
+    private StockServiceImpl stockService;
 
     @Mock
     private StockRepository stockRepository;
@@ -59,7 +59,7 @@ public class StockServiceLegacyImplTest {
 
         when(stockRepository.findAll()).thenReturn(stockList);
 
-        Stock stockDTO = stockServiceLegacy.getStock();
+        Stock stockDTO = stockService.getStock();
 
         assertNotNull(stockDTO);
         assertEquals(stock.getStockId().getName(), stockDTO.getShoes().stream().findFirst().get().getName());
@@ -79,7 +79,7 @@ public class StockServiceLegacyImplTest {
 
         Stock stock = new Stock(FULL, stockShoes);
 
-        stockServiceLegacy.patchStock(stock);
+        stockService.patchStock(stock);
 
         verify(stockRepository, times(1)).deleteAll();
         verify(stockRepository, times(1)).saveAll(any());
@@ -95,7 +95,7 @@ public class StockServiceLegacyImplTest {
 
         Stock stock = new Stock(FULL, stockShoes);
 
-        stockServiceLegacy.patchStock(stock);
+        stockService.patchStock(stock);
 
         verify(stockRepository, never()).deleteAll();
         verify(stockRepository, never()).saveAll(any());
