@@ -1,10 +1,16 @@
 package com.example.demo.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "shoes")
@@ -17,16 +23,6 @@ public class ShoeWithQuantity {
     private Color color;
     private BigInteger quantity;
 
-    public ShoeWithQuantity(BigInteger size, Color color, BigInteger quantity) {
-        this.size = size;
-        this.color = color;
-        this.quantity = quantity;
-
-    }
-
-    public ShoeWithQuantity() {
-
-    }
 
     public enum Color{
 
