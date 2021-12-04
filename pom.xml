@@ -9,8 +9,9 @@
     <module>controller</module>
     <module>dto</module>
     <module>core</module>
-    <module>core-legacy</module>
-    <module>core-new</module>
+    <module>entity</module>
+    <!--    <module>core-legacy</module>-->
+<!--    <module>core-new</module>-->
   </modules>
 
   <parent>
@@ -27,7 +28,7 @@
   <description>Multiple core implementation example project</description>
 
   <properties>
-    <java.version>14</java.version>
+    <java.version>11</java.version>
   </properties>
 
   <dependencies>
