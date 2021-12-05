@@ -9,9 +9,9 @@
     <module>controller</module>
     <module>dto</module>
     <module>core</module>
+    <module>core-legacy</module>
+    <module>core-new</module>
     <module>entity</module>
-    <!--    <module>core-legacy</module>-->
-<!--    <module>core-new</module>-->
   </modules>
 
   <parent>
