@@ -19,13 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StockRepositoryTest {
     @Autowired
     StockRepository stockRepository;
-    @Autowired
-    private ShoeWithQuantityRepository shoeWithQuantityRepository;
 
     @Test
     void whenSaveAStockThenCouldRetrieveIt() {
         Stock aStock = Stock.builder()
-                .state(Stock.State.EMPTY)
                 .build();
         stockRepository.save(aStock);
         Optional<Stock> byId = stockRepository.findById(aStock.getId());
@@ -39,15 +36,13 @@ class StockRepositoryTest {
                 .size(BigInteger.ONE)
                 .quantity(BigInteger.TEN)
                 .color(ShoeWithQuantity.Color.BLUE).build();
-        shoeWithQuantityRepository.save(aShoe);
         Stock aStock = Stock.builder()
-                .state(Stock.State.EMPTY)
                 .shoes(List.of(aShoe))
                 .build();
         stockRepository.save(aStock);
         Optional<Stock> byId = stockRepository.findById(aStock.getId());
         assertThat(byId).isPresent();
-        assertThat(byId.get().getState()).isEqualTo(Stock.State.EMPTY);
+        assertThat(byId.get().getState()).isEqualTo(Stock.State.SOME);
     }
 
     @Test
@@ -60,9 +55,7 @@ class StockRepositoryTest {
                     .color(ShoeWithQuantity.Color.BLUE)
                     .build());
         }
-        shoeWithQuantityRepository.saveAll(listOfShoes);
         Stock aStock = Stock.builder()
-                .state(Stock.State.EMPTY)
                 .shoes(listOfShoes)
                 .build();
         Assertions.assertThrows(ConstraintViolationException.class, () -> stockRepository.saveAndFlush(aStock));
