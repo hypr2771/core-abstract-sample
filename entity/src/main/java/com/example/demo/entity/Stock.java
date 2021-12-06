@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -17,7 +20,7 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Setter(AccessLevel.NONE)
+    @Enumerated(EnumType.STRING)
     private State state = State.EMPTY;
 
     @OneToMany
@@ -26,11 +29,13 @@ public class Stock {
 
     // Work around to have default value when using builder
     public static class StockBuilder {
+        private State state = State.EMPTY;
         private List<ShoeWithQuantity> shoes = new ArrayList<>();
     }
 
     @Builder(builderClassName = "StockBuilder")
-    public Stock(List<ShoeWithQuantity> shoes) {
+    public Stock(State state, List<ShoeWithQuantity> shoes) {
+        this.state = state;
         this.shoes = shoes;
     }
 
