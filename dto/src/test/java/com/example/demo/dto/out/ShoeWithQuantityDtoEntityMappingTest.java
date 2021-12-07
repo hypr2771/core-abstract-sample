@@ -26,7 +26,6 @@ class ShoeWithQuantityDtoEntityMappingTest {
     @Test
     void shoeWithQuantityToDtoMapping() {
         com.example.demo.entity.ShoeWithQuantity entity = com.example.demo.entity.ShoeWithQuantity.builder()
-                .id(1)
                 .quantity(BigInteger.TWO)
                 .size(BigInteger.ONE)
                 .color(com.example.demo.entity.ShoeWithQuantity.Color.BLUE)

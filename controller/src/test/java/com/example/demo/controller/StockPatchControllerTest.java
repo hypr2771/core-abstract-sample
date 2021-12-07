@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(StockController.class)
 class StockPatchControllerTest {
 
-    @Value("classpath:patch_requests/initializeShoes.json")
+    @Value("classpath:patch_requests_for_integration_tests/initializeShoes.json")
     Resource addShoesResource;
 
     @Autowired

@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 import java.math.BigInteger;
 
 @Builder
@@ -13,13 +16,13 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @Data
 @Entity
+@IdClass(ShoeWithQuantityId.class)
 @Table(name = "shoes")
 public class ShoeWithQuantity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
     private BigInteger size;
+    @Id
     private Color color;
     private BigInteger quantity;
 

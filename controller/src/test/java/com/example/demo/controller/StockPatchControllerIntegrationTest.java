@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -18,14 +19,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 class StockPatchControllerIntegrationTest {
 
-    @Value("classpath:patch_requests/initializeShoes.json")
+    @Value("classpath:patch_requests_for_integration_tests/initializeShoes.json")
     Resource addShoesResource;
 
-    @Value("classpath:patch_requests/addOneShoe.json")
+    @Value("classpath:patch_requests_for_integration_tests/addOneShoe.json")
     Resource addOneShoeResource;
 
-    @Value("classpath:patch_requests/addAlreadyExistingShoe.json")
+    @Value("classpath:patch_requests_for_integration_tests/addAlreadyExistingShoe.json")
     Resource addAlreadyExistingShoeResource;
+
+    @Value("classpath:patch_requests_for_integration_tests/updateOneShoeQuantity.json")
+    Resource updateOneShoeQuantityResource;
 
     @Autowired
     StockController stockController;
@@ -57,8 +61,19 @@ class StockPatchControllerIntegrationTest {
         // initialize stock
         stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addShoesResource.getFile())));
         // add already existing shoe
-        ResponseEntity<Stock> result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addAlreadyExistingShoeResource.getFile())));
-        Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
+        JsonPatch addAlreadyExistingShoePatch = JsonPatch.fromJson(objectMapper.readTree(addAlreadyExistingShoeResource.getFile()));
+        org.junit.jupiter.api.Assertions.assertThrows(InvalidDataAccessApiUsageException.class,
+                () -> stockController.patch(2, addAlreadyExistingShoePatch));
 
+    }
+
+    @Test
+    void givenStockWithShoes_WhenUpdateQuantityOneShoe_ShouldBeOk() throws Exception {
+        // initialize stock
+        stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addShoesResource.getFile())));
+        ResponseEntity<Stock> result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(updateOneShoeQuantityResource.getFile())));
+        Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(result.getBody().getShoes().size()).isEqualTo(3);
+        Assertions.assertThat(result.getBody().getShoes().get(2).getQuantity()).isEqualTo(30);
     }
 }
