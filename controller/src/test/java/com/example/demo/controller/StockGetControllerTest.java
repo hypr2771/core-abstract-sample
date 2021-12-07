@@ -5,6 +5,7 @@ import com.example.demo.core.StockCoreNew;
 import com.example.demo.dto.out.ShoeWithQuantity;
 import com.example.demo.dto.out.Stock;
 import com.example.demo.facade.StockFacade;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,10 +26,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(StockController.class)
-class StockControllerTest {
+class StockGetControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @MockBean
     StockFacade stockFacade;
@@ -53,6 +57,7 @@ class StockControllerTest {
         mockMvc.perform(get("/stock")
                         .header("version", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.state").value("SOME"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shoes", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shoes[0].color").value("BLACK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shoes[0].size").value("40"))
@@ -73,6 +78,7 @@ class StockControllerTest {
         mockMvc.perform(get("/stock")
                         .header("version", 2))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.state").value("SOME"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shoes", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shoes[0].color").value("BLUE"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.shoes[0].size").value("39"))

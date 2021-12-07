@@ -16,7 +16,7 @@ class ShoeWithQuantityRepositoryTest {
 
     @Test
     void whenSaveAShoeThenCouldRetrieveIt() {
-        shoeWithQuantityRepository.save(ShoeWithQuantity.builder()
+        shoeWithQuantityRepository.saveAndFlush(ShoeWithQuantity.builder()
                 .color(ShoeWithQuantity.Color.BLACK)
                 .quantity(BigInteger.TEN)
                 .size(BigInteger.TWO)

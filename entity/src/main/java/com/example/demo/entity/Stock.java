@@ -16,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "stocks")
 public class Stock {
+    private static final int MAX_NUMBER_OF_SHOES = 30;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -23,8 +25,8 @@ public class Stock {
     @Enumerated(EnumType.STRING)
     private State state = State.EMPTY;
 
-    @OneToMany
-    @Size(max = 30)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Size(max = MAX_NUMBER_OF_SHOES)
     private List<ShoeWithQuantity> shoes = new ArrayList<>();
 
     // Work around to have default value when using builder
@@ -53,7 +55,7 @@ public class Stock {
             case 0:
                 state = State.EMPTY;
                 break;
-            case 30:
+            case MAX_NUMBER_OF_SHOES:
                 state = State.FULL;
                 break;
             default:

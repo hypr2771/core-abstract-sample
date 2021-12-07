@@ -24,7 +24,7 @@ class StockRepositoryTest {
     void whenSaveAStockThenCouldRetrieveIt() {
         Stock aStock = Stock.builder()
                 .build();
-        stockRepository.save(aStock);
+        stockRepository.saveAndFlush(aStock);
         Optional<Stock> byId = stockRepository.findById(aStock.getId());
         assertThat(byId).isPresent();
         assertThat(byId.get().getState()).isEqualTo(Stock.State.EMPTY);
@@ -36,10 +36,14 @@ class StockRepositoryTest {
                 .size(BigInteger.ONE)
                 .quantity(BigInteger.TEN)
                 .color(ShoeWithQuantity.Color.BLUE).build();
+        ShoeWithQuantity anotherShoe = ShoeWithQuantity.builder()
+                .size(BigInteger.TWO)
+                .quantity(BigInteger.TWO)
+                .color(ShoeWithQuantity.Color.BLACK).build();
         Stock aStock = Stock.builder()
-                .shoes(List.of(aShoe))
+                .shoes(List.of(aShoe, anotherShoe))
                 .build();
-        stockRepository.save(aStock);
+        stockRepository.saveAndFlush(aStock);
         Optional<Stock> byId = stockRepository.findById(aStock.getId());
         assertThat(byId).isPresent();
         assertThat(byId.get().getState()).isEqualTo(Stock.State.SOME);

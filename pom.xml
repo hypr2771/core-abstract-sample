@@ -75,4 +75,15 @@
     </dependency>
   </dependencies>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.github.java-json-tools</groupId>
+        <artifactId>json-patch</artifactId>
+        <version>1.13</version>
+        <optional>true</optional>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 </project>
