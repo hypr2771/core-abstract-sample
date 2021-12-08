@@ -21,7 +21,7 @@ class ShoeWithQuantityRepositoryTest {
                 .quantity(BigInteger.TEN)
                 .size(BigInteger.TWO)
                 .build());
-        assertThat(shoeWithQuantityRepository.findById(1L)).isPresent();
+        assertThat(shoeWithQuantityRepository.findBySizeAndColor(BigInteger.TWO, ShoeWithQuantity.Color.BLACK)).isPresent();
     }
 
 }
