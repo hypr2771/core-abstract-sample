@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -39,10 +37,10 @@ class StockPatchControllerIntegrationTest {
 
     @Test
     void givenEmptyStock_WhenAddNewShoes_ShouldContainThoseShoes() throws Exception {
-        ResponseEntity<Stock> result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addShoesResource.getFile())));
-        Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(result.getBody().getShoes().size()).isEqualTo(3);
-        Assertions.assertThat(result.getBody().getState()).isEqualTo(com.example.demo.entity.Stock.State.SOME);
+        Stock result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addShoesResource.getFile())));
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.getShoes().size()).isEqualTo(3);
+        Assertions.assertThat(result.getState()).isEqualTo(com.example.demo.entity.Stock.State.SOME);
     }
 
     @Test
@@ -50,10 +48,10 @@ class StockPatchControllerIntegrationTest {
         // initialize stock
         stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addShoesResource.getFile())));
         // add one new shoe
-        ResponseEntity<Stock> result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addOneShoeResource.getFile())));
-        Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(result.getBody().getShoes().size()).isEqualTo(4);
-        Assertions.assertThat(result.getBody().getState()).isEqualTo(com.example.demo.entity.Stock.State.SOME);
+        Stock result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addOneShoeResource.getFile())));
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.getShoes().size()).isEqualTo(4);
+        Assertions.assertThat(result.getState()).isEqualTo(com.example.demo.entity.Stock.State.SOME);
     }
 
     @Test
@@ -71,9 +69,9 @@ class StockPatchControllerIntegrationTest {
     void givenStockWithShoes_WhenUpdateQuantityOneShoe_ShouldBeOk() throws Exception {
         // initialize stock
         stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(addShoesResource.getFile())));
-        ResponseEntity<Stock> result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(updateOneShoeQuantityResource.getFile())));
-        Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(result.getBody().getShoes().size()).isEqualTo(3);
-        Assertions.assertThat(result.getBody().getShoes().get(2).getQuantity()).isEqualTo(30);
+        Stock result = stockController.patch(2, JsonPatch.fromJson(objectMapper.readTree(updateOneShoeQuantityResource.getFile())));
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.getShoes().size()).isEqualTo(3);
+        Assertions.assertThat(result.getShoes().get(2).getQuantity()).isEqualTo(30);
     }
 }

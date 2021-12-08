@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "stocks")
 public class Stock {
-    private static final int MAX_NUMBER_OF_SHOES = 30;
+    public static final int MAX_NUMBER_OF_SHOES = 30;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
