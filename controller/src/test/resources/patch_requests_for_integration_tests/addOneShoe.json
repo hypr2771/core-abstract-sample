@@ -1,0 +1,11 @@
+[
+  {
+    "op": "add",
+    "path": "/shoes/-",
+    "value": {
+      "color": "BLACK",
+      "size": 50,
+      "quantity": 1
+    }
+  }
+]

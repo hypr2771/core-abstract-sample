@@ -110,22 +110,22 @@ So the whole point here is again to make your controller implementation agnostic
     <dependency>
       <groupId>com.example</groupId>
       <artifactId>dto</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>com.example</groupId>
       <artifactId>core</artifactId> <!-- Explanations are coming -->
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>com.example</groupId>
       <artifactId>core-legacy</artifactId> <!-- Explanations are coming -->
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>com.example</groupId>
       <artifactId>core-new</artifactId> <!-- Explanations are coming -->
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
   </dependencies>
 ```
