@@ -15,9 +15,7 @@ public class Shoes {
   List<Shoe> shoes;
 
   @JsonPOJOBuilder(withPrefix = "")
-  public static class ShoesBuilder {
+  static class ShoesBuilder {
 
   }
-
-
 }
