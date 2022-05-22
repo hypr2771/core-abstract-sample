@@ -16,7 +16,7 @@ public class StockShoe {
     Integer quantity;
 
     @JsonPOJOBuilder(withPrefix = "")
-    static class StockShoeBuilder {
+    public static class StockShoeBuilder {
 
     }
 
