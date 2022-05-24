@@ -32,6 +32,16 @@
       <artifactId>core-new</artifactId>
       <version>${parent.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>core-stock</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${org.springdoc.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

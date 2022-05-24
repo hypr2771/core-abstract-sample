@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Implementation(version = 1)
 public class StockCore extends AbstractStockCore {
 
-    private  static final int MAX_SHOES_QUANTITY = 30;
+    private static final int MAX_SHOES_QUANTITY = 30;
     private static final int MIN_SHOES_QUANTITY = 0;
     private final StockShoeRepository stockShoeRepository;
     private final StockMapper stockMapper;
