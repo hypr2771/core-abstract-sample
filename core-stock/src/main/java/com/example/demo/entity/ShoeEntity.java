@@ -16,11 +16,13 @@ import javax.validation.constraints.PositiveOrZero;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "SHOE")
+@Table(name = "SHOE",
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"name", "size", "color"}))
 public class ShoeEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
