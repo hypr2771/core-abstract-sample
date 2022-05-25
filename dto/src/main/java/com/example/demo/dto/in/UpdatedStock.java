@@ -1,14 +1,17 @@
 package com.example.demo.dto.in;
 
 import com.example.demo.dto.common.Color;
-import lombok.Value;
+import lombok.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-@Value
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class UpdatedStock {
 
     @NotBlank(message = "Name of the shoe is mandatory")
