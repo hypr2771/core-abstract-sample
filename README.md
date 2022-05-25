@@ -340,6 +340,9 @@ Following a [REST API versioning guide](https://www.baeldung.com/rest-versioning
 
 # Validating the application
 
+APIs can be accessed via Swagger on the URL:
+http://localhost:8080/swagger-ui/index.html
+
 To run the application, you can run the following command in the root folder of the project:
 
 ```shell script
@@ -348,6 +351,8 @@ mvn clean package && \
 ```
 
 ## Version 1
+
+**Shoe API**
 
 To test version 1, you can call:
 
@@ -360,6 +365,31 @@ which should answer (see `com.example.demo.core.ShoeCoreLegacy.search`):
 ```json
 {"shoes":[{"name":"Legacy shoe","size":1,"color":"BLUE"}]}
 ```
+
+**Stock API**
+
+Since no prior version of Stock API exists. The API added is version 1.
+
+```shell script
+curl -X GET "http://localhost:8080/stock" -H "version: 1"
+```
+
+which should answer (see `com.example.demo.core.StockCore.getStockState`):
+
+```json
+{"state":"EMPTY","shoes":[{"size":40,"color":"BLUE","quantity":0},{"size":45,"color":"BLACK","quantity":0}]}
+```
+
+```shell script
+curl -X 'PATCH' 'http://localhost:8080/stock' -H 'version: 1' -H 'Content-Type: application/json' -d '{"name": "Kalenji","size": 42,"color": "BLACK","quantity": 10}'
+```
+
+which should answer (see `com.example.demo.core.StockCore.updateStock`):
+
+```json
+{"color":"BLACK","size":42,"quantity":10}
+```
+
 
 ## Version 2
 
@@ -374,6 +404,30 @@ which should answer (see `com.example.demo.core.ShoeCoreNew.search`):
 ```json
 {"shoes":[{"name":"New shoe","size":2,"color":"BLACK"}]}
 ```
+
+# DataBase
+An H2 database is embedded with the application. It is launched at the start of the latter and it is fed by default by the following data:
+
+```json
+[
+  {"name": "Quechua", "color": "BLACK", "size": 44, "quantity": 5},
+  {"name": "Quechua", "color": "BLACK", "size": 43, "quantity": 4},
+  {"name": "Kalenji", "color": "BLUE", "size": 37, "quantity": 2},
+  {"name": "Kalenji", "color": "BLACK", "size": 42, "quantity": 3},
+  {"name": "Newfeel", "color": "BLUE", "size": 40, "quantity": 1},
+  {"name": "Newfeel", "color": "BLACK", "size": 44, "quantity": 0}
+] 
+
+```
+
+DataBase can be accessible using the following URL:
+http://localhost:8080/h2-console
+
+![database-properties](DatabaseProperties.png?raw=true)
+
+Username: sa
+
+Password: password
 
 # Conclusion
 

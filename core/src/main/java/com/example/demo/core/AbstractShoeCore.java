@@ -1,8 +1,9 @@
 package com.example.demo.core;
 
-import com.example.demo.facade.ShoeFacade;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
+
+import com.example.demo.facade.Facade;
 import lombok.val;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractShoeCore implements ShoeCore {
 
   @Autowired
-  private ShoeFacade shoeFacade;
+  private Facade<ShoeCore> shoeFacade;
 
   @PostConstruct
   void init(){
