@@ -66,7 +66,7 @@ public class CoreLegacyVsNewTest {
 
         @DisplayName("Test: legacy on '/shoes/search'")
         @Test
-        public void testLegacyCore() throws URISyntaxException
+        public void testLegacyCore()
         {
             final String url = "http://localhost:"+randomServerPort+"/shoes/search";
             Shoes expectedShoes = Shoes.builder()
@@ -81,7 +81,7 @@ public class CoreLegacyVsNewTest {
             HttpHeaders headers = new HttpHeaders();
             headers.set("version", "1");
 
-            HttpEntity request = new HttpEntity(headers);
+            HttpEntity<Shoes> request = new HttpEntity<>(headers);
 
             // make an HTTP GET request with headers
             ResponseEntity<Shoes> result = restTemplate.exchange(
@@ -99,7 +99,7 @@ public class CoreLegacyVsNewTest {
 
     @DisplayName("Test: get on new core the default shoe")
     @Test
-    public void testNewCoreDefault() throws URISyntaxException
+    public void testNewCoreDefault()
     {
         final String url = "http://localhost:"+randomServerPort+"/shoes/search";
         Shoes expectedShoes = Shoes.builder()
@@ -113,7 +113,7 @@ public class CoreLegacyVsNewTest {
         HttpHeaders headers = new HttpHeaders();
         headers.set("version", "2");
 
-        HttpEntity request = new HttpEntity(headers);
+        HttpEntity<Shoes> request = new HttpEntity<>(headers);
 
         // make an HTTP GET request with headers
         ResponseEntity<Shoes> result = restTemplate.exchange(
@@ -131,7 +131,7 @@ public class CoreLegacyVsNewTest {
 
     @DisplayName("Test: get on new core the filtered shoe")
     @Test
-    public void testNewCoreWithFilter() throws URISyntaxException {
+    public void testNewCoreWithFilter() {
         final String url = "http://localhost:" + randomServerPort + "/shoes/search";
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
                 .queryParam("size", BigInteger.ONE)
@@ -150,7 +150,7 @@ public class CoreLegacyVsNewTest {
         HttpHeaders headers = new HttpHeaders();
         headers.set("version", "2");
 
-        HttpEntity request = new HttpEntity(headers);
+        HttpEntity<Shoes> request = new HttpEntity<>(headers);
 
         // make an HTTP GET request with headers
         ResponseEntity<Shoes> result = restTemplate.exchange(
@@ -168,7 +168,7 @@ public class CoreLegacyVsNewTest {
 
     @DisplayName("Test: get on new core the filtered shoe with a bad argument")
     @Test
-    public void testNewCoreWithDabFilter() throws URISyntaxException
+    public void testNewCoreWithDabFilter()
     {
         final String url = "http://localhost:"+randomServerPort+"/shoes/search";
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
@@ -189,7 +189,7 @@ public class CoreLegacyVsNewTest {
         HttpHeaders headers = new HttpHeaders();
         headers.set("version", "2");
 
-        HttpEntity request = new HttpEntity(headers);
+        HttpEntity<Shoes> request = new HttpEntity<>(headers);
 
         // make an HTTP GET request with headers
         ResponseEntity<Shoes> result = restTemplate.exchange(
