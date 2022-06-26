@@ -28,6 +28,11 @@
       <version>${parent.version}</version>
     </dependency>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.example</groupId>
       <artifactId>core-new</artifactId>
       <version>${parent.version}</version>
